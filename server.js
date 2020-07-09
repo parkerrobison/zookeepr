@@ -10,6 +10,8 @@ const app = express();
 app.use(express.urlencoded({ extended: true}));
 // parse incoming JSON data
 app.use(express.json());
+// this uses middleware to to make the public file readily available.
+app.use(express.static('public'));
 const { animals } = require('./data/animals.json');
 
 //this function takes in req.query as an argument and filters through the animals. 
@@ -63,7 +65,6 @@ function createNewAnimal(body, animalsArray) {
         path.join(__dirname, './data/animals.json'),
         JSON.stringify({ animals: animalsArray }, null, 2)
     );
-    
     return animal
 }
 
@@ -114,6 +115,10 @@ app.post('/api/animals', (req, res) => {
         const animal = createNewAnimal(req.body, animals);    
         res.json(animal);
     }
+});
+
+app.get('/', (req, res) => {
+    res.sendFile(path.join(__dirname, './public/index.html'));
 });
 
 // this method lets our server listen. 
