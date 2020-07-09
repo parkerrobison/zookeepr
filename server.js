@@ -70,15 +70,19 @@ function createNewAnimal(body, animalsArray) {
 
 function validateAnimal(animal) {
     if (!animal.name || typeof animal.name !== 'string') {
+        console.log("1")
         return false;
     }
     if (!animal.species || typeof animal.species !=='string'){
+        console.log("2")
         return false
     }
     if (!animal.diet || typeof animal.diet !== 'string') {
+        console.log("3")
         return false;
     }
-    if (!animal.personalityTraits || !Array.isArray(animal.personaltyTraits)) {
+    if (!animal.personalityTraits || !Array.isArray(animal.personalityTraits)) {
+        console.log("4")
     return false;
     }
     return true;
@@ -106,15 +110,24 @@ app.post('/api/animals', (req, res) => {
     // req.body is where our incoming content will be
     // set id based on what the next indew of the array will be
     req.body.id = animals.length.toString();
+    console.log(req.body)
 
     // if any data in req.body is incorrect, send 400 error back
     if (!validateAnimal(req.body)) {
         res.status(400).send('The animal is not properly formatted.');
     } else {
         // add animal to json file and animals array in this function
-        const animal = createNewAnimal(req.body, animals);    
+        const animal = createNewAnimal(req.body, animals)
+        console.log("animal", animal)   
         res.json(animal);
     }
+});
+app.get('/animals', (req, res) => {
+    res.sendFile(path.join(__dirname, './public/animals.html'));
+});
+
+app.get('/zookeepers', (req, res) => {
+    res.sendFile(path.join(__dirname, './public/zookeepers.html'));
 });
 
 app.get('/', (req, res) => {
