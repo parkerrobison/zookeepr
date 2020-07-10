@@ -135,6 +135,16 @@
         "zany"
       ],
       "id": "13"
+    },
+    {
+      "name": "Jaws",
+      "species": "Shark",
+      "diet": "carnivore",
+      "personalityTraits": [
+        "hungry",
+        "anxious"
+      ],
+      "id": "14"
     }
   ]
 }
